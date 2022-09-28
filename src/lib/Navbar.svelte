@@ -1,7 +1,9 @@
 <header data-aos="fade-down">
 	<div class="logo skewy">
 		<div class="arrow" />
-		<img src="/btc.svg" alt="" />
+		<a href="/">
+			<img src="/btc.svg" alt="" />
+		</a>
 	</div>
 	<div class="space" />
 	<div class="search">
@@ -29,8 +31,7 @@
 				height: 0;
 				border-left: 0px solid transparent;
 				border-right: 100000px solid transparent;
-
-				border-top: 200px solid black;
+				border-top: 200px solid #1b1b1b;
 			}
 			img {
 				width: 70px;

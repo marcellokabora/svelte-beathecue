@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
 @import 'material-icons/iconfont/material-icons.css';
+@import 'aos/dist/aos.css';
 
 :root {
   --primary: #333333;
@@ -18,7 +19,26 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: black;
+  color: white;
   .skewy {
       transform: skewy(-7deg);
   }
+	form.radio {
+		input {
+			cursor: pointer;
+			&:checked:after {
+				width: 12px;
+				height: 12px;
+				border-radius: 15px;
+				top: -2px;
+				left: -1px;
+				position: relative;
+				background-color: rgba(0, 0, 0, 0.8);
+				content: '';
+				display: inline-block;
+				visibility: visible;
+				border: 2px solid white;
+			}
+		}
+	}
 }

@@ -40,7 +40,7 @@
 				{#if radio === index}
 					<div class="detail" data-aos="zoom-in">
 						<div style:background-color={color} class="info">
-							<form>
+							<form class="radio">
 								<input type="radio" bind:group={radio} name="0" value={0} />
 								<input type="radio" bind:group={radio} name="1" value={1} />
 								<input type="radio" bind:group={radio} name="2" value={2} />
@@ -117,22 +117,6 @@
 					form {
 						position: absolute;
 						right: 40px;
-						input {
-							cursor: pointer;
-							&:checked:after {
-								width: 12px;
-								height: 12px;
-								border-radius: 15px;
-								top: -2px;
-								left: -1px;
-								position: relative;
-								background-color: rgba(0, 0, 0, 0.8);
-								content: '';
-								display: inline-block;
-								visibility: visible;
-								border: 2px solid white;
-							}
-						}
 					}
 					h3 {
 						font-size: 25px;
