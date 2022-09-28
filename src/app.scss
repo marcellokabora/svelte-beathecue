@@ -1,0 +1,24 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
+@import 'material-icons/iconfont/material-icons.css';
+
+:root {
+  --primary: #333333;
+  --secondary: #8f9deb;
+  --red: #c73b3b;
+  --green: #43b480;
+  --pink: #9f33dd;
+  --blue: #39a0db;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: black;
+  .skewy {
+      transform: skewy(-7deg);
+  }
+}
