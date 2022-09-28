@@ -65,10 +65,12 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		margin-top: -2px;
 		.container {
 			max-width: 1200px;
 			margin: auto;
-			padding-bottom: 50px;
+			padding-top: 200px;
+			padding-bottom: 250px;
 			.title {
 				max-width: 40%;
 				margin-bottom: 20px;
@@ -89,7 +91,7 @@
 				padding-left: 100px;
 			}
 			.photo {
-				flex: 2;
+				flex: 3;
 				img {
 					width: 100%;
 					height: 450px;

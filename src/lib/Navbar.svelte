@@ -24,11 +24,11 @@
 			position: relative;
 			.arrow {
 				position: absolute;
-				top: -80px;
+				top: -50px;
 				width: 0;
 				height: 0;
 				border-left: 0px solid transparent;
-				border-right: 5000px solid transparent;
+				border-right: 100000px solid transparent;
 
 				border-top: 200px solid black;
 			}
@@ -37,8 +37,8 @@
 				z-index: 1;
 				cursor: pointer;
 				position: absolute;
-				left: 20px;
-				top: 20px;
+				left: 40px;
+				top: 40px;
 			}
 		}
 		.space {
