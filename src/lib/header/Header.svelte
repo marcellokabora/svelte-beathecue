@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Section from '../Section.svelte';
+	import Textbox from '../Textbox.svelte';
 	export let data: any[] = [];
 	let radio = 0;
 	let autoslide = true;
@@ -82,7 +83,8 @@
 		id est laborum. Excepteur sint occaecat cupidatat non proident.
 	</p>
 </Section>
-<Section color={data[radio].color}>
+<Textbox />
+<Section color={data[radio].color} opacity invert>
 	<h1>Deserunt mollit anim</h1>
 	<p>
 		Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim

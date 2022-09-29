@@ -51,6 +51,12 @@
 			align-items: center;
 			margin-right: 30px;
 			margin-top: 30px;
+			// @media (max-width: 1400px) {
+			// 	margin-top: 20px;
+			// }
+			// @media (max-width: 1000px) {
+			// 	margin-top: 20px;
+			// }
 			input {
 				background-color: rgba(0, 0, 0, 0.6);
 				height: 40px;

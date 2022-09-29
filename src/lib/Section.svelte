@@ -1,13 +1,14 @@
-<script>
+<script lang="ts">
 	export let color = 'black';
 	export let opacity = false;
+	export let invert = false;
 	let radio = 0;
 	const infos = [
 		{
 			photo: '/back1.jpeg',
 			title: 'Deserunt mollit anim',
 			infos:
-				'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
 		},
 		{
 			photo: '/back2.jpeg',
@@ -24,7 +25,8 @@
 	];
 </script>
 
-<section class="skewy" style:background-color={color} class:opacity>
+<section class="skewy" style:background-color={color} class:opacity class:invert>
+	<div class="opacity" />
 	<div class="container">
 		<div class="title" data-aos="fade-down" style:background-color={color}>
 			<slot />
@@ -47,7 +49,7 @@
 								<input type="radio" bind:group={radio} name="2" value={2} />
 							</form>
 							<h3>{item.title}</h3>
-							<p>{item.infos}</p>
+							<p>{@html item.infos}</p>
 						</div>
 					</div>
 				{/if}
@@ -69,28 +71,52 @@
 		margin-top: -2px;
 		&.opacity {
 			.opacity {
-				opacity: 0.5;
+				opacity: 0.1;
+			}
+		}
+		&.invert {
+			.container {
+				align-items: flex-end;
+				.photo {
+					order: 2;
+					margin-right: 50px;
+				}
+				.title {
+					box-shadow: -3px 3px 3px rgba(0, 0, 0, 0.2) !important;
+				}
+				.info {
+					order: 1;
+					margin-left: 0 !important;
+					margin-right: -200px;
+					box-shadow: 3px -3px 3px rgba(0, 0, 0, 0.2) !important;
+				}
 			}
 		}
 		.opacity {
 			position: absolute;
-			width: 100%;
-			height: 100%;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			background-color: black;
+			opacity: 0;
 		}
 		.container {
 			max-width: 1200px;
 			margin: auto;
 			padding-top: 200px;
 			padding-bottom: 250px;
+			display: flex;
+			flex-direction: column;
 			.title {
 				max-width: 40%;
 				margin-bottom: 20px;
 				padding: 20px 40px;
 				box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
 				z-index: 1;
-				/* position: absolute; */
 				position: relative;
 				margin-bottom: -50px;
+				border-radius: 10px;
 				:global(h1) {
 					font-size: 35px;
 					margin: 0;
@@ -108,9 +134,6 @@
 					height: 450px;
 					object-fit: cover;
 					box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-					&.visible {
-						display: block;
-					}
 				}
 			}
 			.detail {
@@ -125,6 +148,8 @@
 					justify-content: start;
 					margin-bottom: -50px;
 					margin-left: -200px;
+					position: relative;
+					border-radius: 10px;
 					form {
 						position: absolute;
 						right: 40px;
