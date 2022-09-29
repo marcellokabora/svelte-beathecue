@@ -6,7 +6,7 @@
 		</a>
 	</div>
 	<div class="space" />
-	<div class="search">
+	<div class="search skewy">
 		<input type="text" placeholder="Search..." />
 		<div class="icon">
 			<span class="material-icons">person</span>
@@ -49,8 +49,8 @@
 			color: white;
 			display: flex;
 			align-items: center;
-			margin-right: 20px;
-			margin-top: 20px;
+			margin-right: 30px;
+			margin-top: 30px;
 			input {
 				background-color: rgba(0, 0, 0, 0.6);
 				height: 40px;

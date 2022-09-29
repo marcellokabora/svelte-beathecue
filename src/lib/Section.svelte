@@ -1,5 +1,6 @@
 <script>
 	export let color = 'black';
+	export let opacity = false;
 	let radio = 0;
 	const infos = [
 		{
@@ -23,7 +24,7 @@
 	];
 </script>
 
-<section class="skewy" style:background-color={color}>
+<section class="skewy" style:background-color={color} class:opacity>
 	<div class="container">
 		<div class="title" data-aos="fade-down" style:background-color={color}>
 			<slot />
@@ -66,6 +67,16 @@
 		flex-direction: column;
 		justify-content: center;
 		margin-top: -2px;
+		&.opacity {
+			.opacity {
+				opacity: 0.5;
+			}
+		}
+		.opacity {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		}
 		.container {
 			max-width: 1200px;
 			margin: auto;
