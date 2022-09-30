@@ -40,26 +40,26 @@
 				{#if play}
 					<iframe
 						class="photo"
-						src={`https://www.youtube.com/embed/${item.video.id}?start=${item.video.start}&controls=0&autoplay=1&modestbranding=0&rel=0`}
+						src={`https://www.youtube.com/embed/${item.header.video}?start=0&controls=0&autoplay=1&modestbranding=0&rel=0`}
 						title="YouTube video player"
 						frameborder="0"
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 						allowfullscreen
 					/>
 				{:else}
-					<img class="photo" src={item.photo} alt="" data-aos="fade-down" />
+					<img class="photo" src={item.header.cover} alt="" data-aos="fade-down" />
 				{/if}
 				<div class="title" data-aos="fade-up">
 					{#if !play}
 						{#if editmode}
-							<h1 contenteditable bind:textContent={item.title} />
+							<h1 contenteditable bind:textContent={item.header.title} />
 						{:else}
-							<h1>{item.title}</h1>
+							<h1>{item.header.title}</h1>
 						{/if}
 						{#if editmode}
-							<small contenteditable bind:textContent={item.event} />
+							<small contenteditable bind:textContent={item.header.event} />
 						{:else}
-							<small>{item.event}</small>
+							<small>{item.header.event}</small>
 						{/if}
 					{/if}
 				</div>
@@ -79,14 +79,14 @@
 						{#if radio === index}
 							<div data-aos="fade-up">
 								{#if editmode}
-									<div class="tito" contenteditable bind:textContent={item.infos.tito} />
+									<div class="tito" contenteditable bind:textContent={item.banner1.title} />
 								{:else}
-									<div class="tito">{item.infos.tito}</div>
+									<div class="tito">{item.banner1.title}</div>
 								{/if}
 								{#if editmode}
-									<div class="info" contenteditable bind:textContent={item.infos.info} />
+									<div class="info" contenteditable bind:textContent={item.banner1.infos} />
 								{:else}
-									<div class="info">{item.infos.info}</div>
+									<div class="info">{item.banner1.infos}</div>
 								{/if}
 							</div>
 							<div class="action">
@@ -112,9 +112,13 @@
 		</div>
 	</div>
 </section>
-<Section color={data[radio].color} bind:editmode bind:title={data[0].title} />
-<Textbox bind:data={data[radio].banner1} {editmode} />
-<Section color={data[radio].color} opacity invert />
+<Section color={data[radio].color} bind:editmode bind:data={data[0].section1} />
+<Section color={data[radio].color} opacity invert>
+	<Textbox bind:data={data[radio].banner2} {editmode} />
+</Section>
+<Section color={data[radio].color}>
+	<Textbox bind:data={data[radio].banner2} {editmode} invert />
+</Section>
 
 <svelte:window bind:scrollY={y} />
 

@@ -44,5 +44,10 @@
 				}
 			}
 		}
+		@media (max-width: 1000px) {
+			.menu {
+				flex-direction: column;
+			}
+		}
 	}
 </style>

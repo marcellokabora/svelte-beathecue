@@ -6,4 +6,8 @@ declare namespace App {
 	// interface PageData {}
 	// interface Error {}
 	// interface Platform {}
+	interface Banner {
+		title: string;
+		infos: string;
+	}
 }
