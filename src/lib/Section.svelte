@@ -1,7 +1,9 @@
-<script lang="ts">
+<script>
 	export let color = 'black';
 	export let opacity = false;
 	export let invert = false;
+	export let editmode = false;
+	export let title = 'Lorem ipsum dolor sit amet';
 	let radio = 0;
 	const infos = [
 		{
@@ -29,7 +31,16 @@
 	<div class="opacity" />
 	<div class="container">
 		<div class="title" data-aos="fade-down" style:background-color={color}>
-			<slot />
+			{#if editmode}
+				<h1 contenteditable bind:textContent={title} />
+			{:else}
+				<h1 contenteditable="false" bind:textContent={title} />
+			{/if}
+			{#if editmode}
+				<p contenteditable bind:textContent={title} />
+			{:else}
+				<p contenteditable="false" bind:textContent={title} />
+			{/if}
 		</div>
 		<div class="blocks">
 			<div class="photo">
@@ -48,7 +59,12 @@
 								<input type="radio" bind:group={radio} name="1" value={1} />
 								<input type="radio" bind:group={radio} name="2" value={2} />
 							</form>
-							<h3>{item.title}</h3>
+							{#if editmode}
+								<h1 contenteditable bind:textContent={title} />
+							{:else}
+								<h1 contenteditable="false" bind:textContent={title} />
+							{/if}
+							<!-- <h3>{item.title}</h3> -->
 							<p>{@html item.infos}</p>
 						</div>
 					</div>

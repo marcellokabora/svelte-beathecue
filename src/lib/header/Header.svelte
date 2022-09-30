@@ -13,7 +13,25 @@
 		}
 	}, 15000);
 	$: autoslide = y === 0 && !clicked;
+
+	let editmode = false;
+
+	import { doc, setDoc } from 'firebase/firestore';
+	import { db } from '../../firebase';
+	const idoc = 'r6r1Ewqw52OwbXuG61Vo';
+	const iSave = async () => {
+		await setDoc(doc(db, 'event', idoc), data[radio]).then(() => (editmode = false));
+	};
 </script>
+
+<div class="editmode">
+	{#if !editmode}
+		<button on:click={() => (editmode = true)}>EDIT</button>
+	{:else}
+		<button on:click={() => (editmode = false)}>CANCEL</button>
+		<button on:click={iSave}>SAVE</button>
+	{/if}
+</div>
 
 <section class="skewy" on:click={() => (clicked = true)}>
 	<div class="container">
@@ -33,8 +51,16 @@
 				{/if}
 				<div class="title" data-aos="fade-up">
 					{#if !play}
-						<h1>{item.title}</h1>
-						<small>@{item.event}</small>
+						{#if editmode}
+							<h1 contenteditable bind:textContent={item.title} />
+						{:else}
+							<h1>{item.title}</h1>
+						{/if}
+						{#if editmode}
+							<small contenteditable bind:textContent={item.event} />
+						{:else}
+							<small>{item.event}</small>
+						{/if}
 					{/if}
 				</div>
 			{/if}
@@ -52,8 +78,16 @@
 					{#each data as item, index}
 						{#if radio === index}
 							<div data-aos="fade-up">
-								<div class="tito">{item.infos.tito}</div>
-								<div class="info">{item.infos.info}</div>
+								{#if editmode}
+									<div class="tito" contenteditable bind:textContent={item.infos.tito} />
+								{:else}
+									<div class="tito">{item.infos.tito}</div>
+								{/if}
+								{#if editmode}
+									<div class="info" contenteditable bind:textContent={item.infos.info} />
+								{:else}
+									<div class="info">{item.infos.info}</div>
+								{/if}
 							</div>
 							<div class="action">
 								<button style:background-color={item.color} on:click={() => (play = !play)}>
@@ -65,9 +99,11 @@
 									{play ? 'STOP' : 'PREVIEW'}
 								</button>
 								<div class="space" />
-								<a href={item.link}>
-									<button style:background-color={item.color}>OPEN</button>
-								</a>
+								{#if data[1]}
+									<a href={`/event/${item.id}`}>
+										<button style:background-color={item.color}>OPEN</button>
+									</a>
+								{/if}
 							</div>
 						{/if}
 					{/each}
@@ -76,21 +112,9 @@
 		</div>
 	</div>
 </section>
-<Section color={data[radio].color}>
-	<h1>Deserunt mollit anim</h1>
-	<p>
-		Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-		id est laborum. Excepteur sint occaecat cupidatat non proident.
-	</p>
-</Section>
-<Textbox />
-<Section color={data[radio].color} opacity invert>
-	<h1>Deserunt mollit anim</h1>
-	<p>
-		Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-		id est laborum. Excepteur sint occaecat cupidatat non proident.
-	</p>
-</Section>
+<Section color={data[radio].color} bind:editmode bind:title={data[0].title} />
+<Textbox bind:data={data[radio].banner1} {editmode} />
+<Section color={data[radio].color} opacity invert />
 
 <svelte:window bind:scrollY={y} />
 

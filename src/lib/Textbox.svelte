@@ -1,11 +1,18 @@
-<div class="textbox skewy">
-	<div class="boxcont">
+<script lang="ts">
+	export let editmode = false;
+	export let data: any;
+</script>
+
+<div class="textbox" data-aos="zoom-in">
+	<div class="boxcont skewy">
 		<div class="txtbox">
-			<h3>Lorem ipsum dolor sit amet</h3>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-				labore et dolore magna aliqua.
-			</p>
+			{#if editmode}
+				<h3 contenteditable bind:textContent={data.tito} />
+				<p contenteditable bind:textContent={data.subo} />
+			{:else}
+				<h3 contenteditable="false" bind:textContent={data.tito} />
+				<p contenteditable="false" bind:textContent={data.subo} />
+			{/if}
 		</div>
 	</div>
 </div>

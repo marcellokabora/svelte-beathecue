@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Navbar from '$lib/Navbar.svelte';
 	import Footer from '$lib/Footer.svelte';
 	import '../app.scss';
@@ -7,6 +7,8 @@
 	import { onMount } from 'svelte';
 	onMount(() => AOS.init());
 	export const prerender = true;
+	// import type { LayoutData } from './$types';
+	// export let data: LayoutData;
 </script>
 
 <main>
@@ -15,6 +17,7 @@
 		<slot />
 	</div>
 	<Footer />
+	<!-- {data} -->
 </main>
 
 <style lang="scss">
