@@ -112,20 +112,3 @@ section {
         }
     }
 }
-
-.editmode {
-    position: fixed;
-    top: 50px;
-    left: 170px;
-    z-index: 999;
-    button {
-        border-radius: 100px;
-        padding: 10px 10px;
-        min-width: 100px;
-        background-color: rgb(94, 94, 94);
-        color: white;
-        font-weight: bold;
-        border: none;
-        cursor: pointer;
-    }
-}

@@ -1,37 +1,25 @@
 <script lang="ts">
 	import Section from '../Section.svelte';
 	import Textbox from '../Textbox.svelte';
+	import { editmode, saveinfo } from '../../stores';
+	import { doc, setDoc } from 'firebase/firestore';
+	import { db } from '../../firebase';
 	export let data: any[] = [];
 	let radio = 0;
 	let autoslide = true;
 	let play = false;
 	let clicked = false;
 	let y = 0;
-	setInterval(() => {
-		if (autoslide) {
-			radio < data.length - 1 ? radio++ : (radio = 0);
-		}
-	}, 15000);
+	// setInterval(() => {
+	// 	if (autoslide) radio < data.length - 1 ? radio++ : (radio = 0);
+	// }, 5000);
 	$: autoslide = y === 0 && !clicked;
-
-	let editmode = false;
-
-	import { doc, setDoc } from 'firebase/firestore';
-	import { db } from '../../firebase';
 	const idoc = 'r6r1Ewqw52OwbXuG61Vo';
-	const iSave = async () => {
-		await setDoc(doc(db, 'event', idoc), data[radio]).then(() => (editmode = false));
-	};
+	saveinfo.subscribe((value) => {
+		if (value) setDoc(doc(db, 'event', idoc), data[radio]).then(() => ($editmode = false));
+		$saveinfo = false;
+	});
 </script>
-
-<div class="editmode">
-	{#if !editmode}
-		<button on:click={() => (editmode = true)}>EDIT</button>
-	{:else}
-		<button on:click={() => (editmode = false)}>CANCEL</button>
-		<button on:click={iSave}>SAVE</button>
-	{/if}
-</div>
 
 <section class="skewy" on:click={() => (clicked = true)}>
 	<div class="container">
@@ -51,15 +39,12 @@
 				{/if}
 				<div class="title" data-aos="fade-up">
 					{#if !play}
-						{#if editmode}
+						{#if $editmode}
 							<h1 contenteditable bind:textContent={item.header.title} />
-						{:else}
-							<h1>{item.header.title}</h1>
-						{/if}
-						{#if editmode}
 							<small contenteditable bind:textContent={item.header.event} />
 						{:else}
-							<small>{item.header.event}</small>
+							<h1 contenteditable="false" bind:textContent={item.header.title} />
+							<small contenteditable="false" bind:textContent={item.header.event} />
 						{/if}
 					{/if}
 				</div>
@@ -78,15 +63,12 @@
 					{#each data as item, index}
 						{#if radio === index}
 							<div data-aos="fade-up">
-								{#if editmode}
+								{#if $editmode}
 									<div class="tito" contenteditable bind:textContent={item.banner1.title} />
-								{:else}
-									<div class="tito">{item.banner1.title}</div>
-								{/if}
-								{#if editmode}
 									<div class="info" contenteditable bind:textContent={item.banner1.infos} />
 								{:else}
-									<div class="info">{item.banner1.infos}</div>
+									<div class="tito" contenteditable="false" bind:textContent={item.banner1.title} />
+									<div class="info" contenteditable="false" bind:textContent={item.banner1.infos} />
 								{/if}
 							</div>
 							<div class="action">
@@ -112,12 +94,12 @@
 		</div>
 	</div>
 </section>
-<Section color={data[radio].color} bind:editmode bind:data={data[0].section1} />
+<Section color={data[radio].color} bind:editmode={$editmode} bind:data={data[0].section1} />
 <Section color={data[radio].color} opacity invert>
-	<Textbox bind:data={data[radio].banner2} {editmode} />
+	<Textbox bind:data={data[radio].banner2} editmode={$editmode} />
 </Section>
 <Section color={data[radio].color}>
-	<Textbox bind:data={data[radio].banner2} {editmode} invert />
+	<Textbox bind:data={data[radio].banner2} editmode={$editmode} invert />
 </Section>
 
 <svelte:window bind:scrollY={y} />

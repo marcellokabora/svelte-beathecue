@@ -143,7 +143,7 @@
 			top: 0;
 			bottom: 0;
 			background-color: black;
-			opacity: 0;
+			opacity: 0.05;
 		}
 		.container {
 			max-width: 1200px;
