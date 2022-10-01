@@ -4,12 +4,14 @@
 		signInWithEmailAndPassword(getAuth(), email, password)
 			.then((result) => {
 				showlogin = false;
+				showuser = true;
 			})
 			.catch((error) => {});
 	};
 	let email: string = '';
 	let password: string = '';
 	export let showlogin = false;
+	export let showuser = false;
 </script>
 
 <main>

@@ -1,12 +1,12 @@
 <script lang="ts">
 	import Login from './Login.svelte';
 	import { getAuth } from 'firebase/auth';
-	let showmenu = false;
+	let showuser = false;
 	import { editmode, saveinfo, user } from '../stores';
 	let showlogin = false;
 	const logout = () => {
 		getAuth().signOut();
-		showmenu = false;
+		showuser = false;
 		showlogin = true;
 	};
 </script>
@@ -24,17 +24,17 @@
 			<input type="text" placeholder="Search..." />
 			<div
 				class="icon"
-				on:click={() => ($user ? (showmenu = !showmenu) : (showlogin = !showlogin))}
+				on:click={() => ($user ? (showuser = !showuser) : (showlogin = !showlogin))}
 			>
 				<span class="material-icons">person</span>
 			</div>
 		</div>
 		{#if showlogin}
 			<div class="menus" data-aos="fade-down">
-				<Login bind:showlogin />
+				<Login bind:showlogin bind:showuser />
 			</div>
 		{/if}
-		{#if showmenu}
+		{#if showuser}
 			<div class="menus" data-aos="fade-down">
 				{#if !$editmode}
 					<div class="menu1">
@@ -65,7 +65,7 @@
 								class="info"
 								on:click={() => {
 									$editmode = false;
-									showmenu = false;
+									showuser = false;
 								}}
 							>
 								<span class="text">CANCEL</span>
@@ -80,7 +80,7 @@
 								class="info"
 								on:click={() => {
 									$saveinfo = true;
-									showmenu = false;
+									showuser = false;
 								}}
 							>
 								<span class="text">SAVE</span>
