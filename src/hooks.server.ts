@@ -1,5 +1,4 @@
 import { getAuth } from "firebase/auth";
-import "./firebase";
 
 export async function handle({ event, resolve }: any) {
     event.locals.user = await getAuth().currentUser;

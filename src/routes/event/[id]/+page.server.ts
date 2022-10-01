@@ -1,6 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { getAuth } from "firebase/auth";
-import { doc, collection, getDoc, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
 
 export async function load({ params }: any) {

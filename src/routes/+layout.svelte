@@ -1,14 +1,21 @@
 <script lang="ts">
 	import Navbar from '$lib/Navbar.svelte';
 	import Footer from '$lib/Footer.svelte';
+	import { user } from '../stores';
 	import '../app.scss';
 	// @ts-ignore
 	import AOS from 'aos';
 	import { onMount } from 'svelte';
-	onMount(() => AOS.init());
+	import { getAuth } from 'firebase/auth';
+	onMount(() => {
+		AOS.init();
+	});
 	export const prerender = true;
-	// import type { LayoutData } from './$types';
-	// export let data: LayoutData;
+
+	getAuth().onAuthStateChanged((result) => {
+		console.log(result?.email);
+		$user = result?.email;
+	});
 </script>
 
 <main>

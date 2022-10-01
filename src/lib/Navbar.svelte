@@ -1,6 +1,14 @@
 <script lang="ts">
+	import Login from './Login.svelte';
+	import { getAuth } from 'firebase/auth';
 	let showmenu = false;
-	import { editmode, saveinfo } from '../stores';
+	import { editmode, saveinfo, user } from '../stores';
+	let showlogin = false;
+	const logout = () => {
+		getAuth().signOut();
+		showmenu = false;
+		showlogin = true;
+	};
 </script>
 
 <header data-aos="fade-down">
@@ -14,20 +22,40 @@
 	<div class="search1 skewy">
 		<div class="search">
 			<input type="text" placeholder="Search..." />
-			<div class="icon" on:click={() => (showmenu = !showmenu)}>
+			<div
+				class="icon"
+				on:click={() => ($user ? (showmenu = !showmenu) : (showlogin = !showlogin))}
+			>
 				<span class="material-icons">person</span>
 			</div>
 		</div>
+		{#if showlogin}
+			<div class="menus" data-aos="fade-down">
+				<Login bind:showlogin />
+			</div>
+		{/if}
 		{#if showmenu}
 			<div class="menus" data-aos="fade-down">
 				{#if !$editmode}
 					<div class="menu1">
 						<div class="menu">
-							<div class="info">marcellokabora@gmail.com</div>
+							<div class="info">{$user}</div>
 						</div>
 						<div class="menu">
-							<div class="info">LOGOUT</div>
+							<div class="info" on:click={logout}><span class="material-icons">logout</span></div>
 						</div>
+						{#if !$editmode}
+							<div class="menu">
+								<div
+									class="info"
+									on:click={() => {
+										$editmode = true;
+									}}
+								>
+									<span class="material-icons">edit</span>
+								</div>
+							</div>
+						{/if}
 					</div>
 				{/if}
 				<div class="menu1">
@@ -40,17 +68,9 @@
 									showmenu = false;
 								}}
 							>
-								CANCEL
-							</div>
-						{/if}
-						{#if !$editmode}
-							<div
-								class="info"
-								on:click={() => {
-									$editmode = true;
-								}}
-							>
-								EDIT PAGE
+								<span class="text">CANCEL</span>
+								<div class="space" />
+								<span class="material-icons">cancel</span>
 							</div>
 						{/if}
 					</div>
@@ -63,7 +83,9 @@
 									showmenu = false;
 								}}
 							>
-								SAVE
+								<span class="text">SAVE</span>
+								<div class="space" />
+								<span class="material-icons">save</span>
 							</div>
 						</div>
 					{/if}
@@ -92,6 +114,7 @@
 				.menu {
 					display: flex;
 					justify-content: end;
+					width: 100%;
 					&:not(:last-child) {
 						margin-right: 5px;
 						margin-bottom: 5px;
@@ -102,23 +125,29 @@
 						cursor: pointer;
 						text-align: right;
 						border-radius: 5px;
-						// padding-left: 50px;
 						font-size: 12px;
 						font-weight: bold;
 						height: 30px;
 						display: flex;
-						flex-direction: column;
 						justify-content: center;
+						align-items: center;
+						width: 100%;
+						text-align: center;
 						&:hover {
 							background-color: rgb(22, 22, 22);
 						}
-
-						// &.email {
-						// 	padding-left: 15px;
-						// 	font-size: 18px;
-						// 	font-weight: normal;
-						// 	cursor: default;
-						// }
+						.text {
+							flex: 1;
+						}
+						.space {
+							padding-left: 10px;
+							margin-left: 10px;
+							border-left: 1px solid rgba(255, 255, 255, 0.3);
+							height: 100%;
+						}
+						.material-icons {
+							float: right;
+						}
 					}
 				}
 			}

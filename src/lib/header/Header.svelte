@@ -81,7 +81,7 @@
 									{play ? 'STOP' : 'PREVIEW'}
 								</button>
 								<div class="space" />
-								{#if data[1]}
+								{#if data[0]}
 									<a href={`/event/${item.id}`}>
 										<button style:background-color={item.color}>OPEN</button>
 									</a>
