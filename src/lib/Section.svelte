@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Settings from './Settings.svelte';
+
 	export let color = 'black';
 	export let opacity = false;
 	export let invert = false;
@@ -50,6 +52,22 @@
 		}
 	};
 	let radio = 0;
+	const onAdd = () => {
+		data.block2.push({
+			photo: '/back1.jpeg',
+			title: 'Deserunt mollit anim',
+			infos:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+		});
+		radio = 0;
+		block2 = data.block2;
+	};
+	const onRemove = (index: number) => {
+		if (data.block2.length > 1) data.block2.splice(index, 1);
+		radio = 0;
+		block2 = data.block2;
+	};
+	let block2 = data.block2;
 </script>
 
 <section class="skewy" style:background-color={color} class:opacity class:invert>
@@ -67,19 +85,25 @@
 		</div>
 		<div class="blocks">
 			<div class="photo">
-				{#each data.block2 as item, index}
+				{#each block2 as item, index}
 					{#if radio === index}
 						<img src={item.photo} alt="" data-aos="zoom-in" />
 					{/if}
 				{/each}
 			</div>
-			{#each data.block2 as item, index}
+			{#each block2 as item, index}
 				{#if radio === index}
 					<div class="detail" data-aos="zoom-in">
 						<div style:background-color={color} class="info">
-							{#if data.block2.length > 1}
+							<Settings
+								{editmode}
+								on:add={onAdd}
+								on:remove={() => onRemove(index)}
+								bind:data={data.block2}
+							/>
+							{#if block2.length > 1}
 								<form class="radio">
-									{#each data.block2 as item, index}
+									{#each block2 as item, index}
 										<input type="radio" bind:group={radio} name={String(index)} value={index} />
 									{/each}
 								</form>
@@ -195,6 +219,7 @@
 					margin-left: -200px;
 					position: relative;
 					border-radius: 10px;
+
 					form {
 						position: absolute;
 						right: 40px;

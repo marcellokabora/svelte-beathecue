@@ -13,7 +13,6 @@
 	export const prerender = true;
 
 	getAuth().onAuthStateChanged((result) => {
-		console.log(result?.email);
 		$user = result?.email;
 	});
 </script>

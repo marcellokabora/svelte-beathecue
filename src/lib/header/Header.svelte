@@ -95,11 +95,17 @@
 	</div>
 </section>
 <Section color={data[radio].color} bind:editmode={$editmode} bind:data={data[0].section1} />
-<Section color={data[radio].color} opacity invert>
+<Section
+	color={data[radio].color}
+	bind:editmode={$editmode}
+	bind:data={data[0].section2}
+	opacity
+	invert
+>
 	<Textbox bind:data={data[radio].banner2} editmode={$editmode} />
 </Section>
-<Section color={data[radio].color}>
-	<Textbox bind:data={data[radio].banner2} editmode={$editmode} invert />
+<Section color={data[radio].color} bind:editmode={$editmode} bind:data={data[0].section3}>
+	<Textbox bind:data={data[radio].banner3} editmode={$editmode} invert />
 </Section>
 
 <svelte:window bind:scrollY={y} />
