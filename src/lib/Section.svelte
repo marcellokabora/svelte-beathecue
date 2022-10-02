@@ -77,10 +77,14 @@
 		<div class="title" data-aos="fade-down" style:background-color={color}>
 			{#if editmode}
 				<h2 contenteditable bind:textContent={data.block1.title} />
-				<p contenteditable bind:textContent={data.block1.infos} />
+				{#if data.block1.infos}
+					<p contenteditable bind:textContent={data.block1.infos} />
+				{/if}
 			{:else}
 				<h2 contenteditable="false" bind:textContent={data.block1.title} />
-				<p contenteditable="false" bind:textContent={data.block1.infos} />
+				{#if data.block1.infos}
+					<p contenteditable="false" bind:textContent={data.block1.infos} />
+				{/if}
 			{/if}
 		</div>
 		<div class="blocks">
@@ -110,10 +114,14 @@
 							{/if}
 							{#if editmode}
 								<h3 contenteditable bind:textContent={item.title} />
-								<p contenteditable bind:textContent={item.infos} />
+								{#if item.infos}
+									<p contenteditable bind:textContent={item.infos} />
+								{/if}
 							{:else}
 								<h3 contenteditable="false" bind:textContent={item.title} />
-								<p contenteditable="false" bind:textContent={item.infos} />
+								{#if item.infos}
+									<p contenteditable="false" bind:textContent={item.infos} />
+								{/if}
 							{/if}
 						</div>
 					</div>
@@ -227,6 +235,34 @@
 					h3 {
 						font-size: 25px;
 						margin-bottom: 0;
+					}
+				}
+			}
+		}
+		@media (max-width: 1200px) {
+			.container {
+				align-items: flex-start !important;
+
+				.title {
+					max-width: 60% !important;
+					margin-left: 20px !important;
+				}
+				.blocks {
+					flex-direction: column;
+					padding: 0 !important;
+					.photo {
+						flex: 1;
+						order: 1 !important;
+					}
+					.detail {
+						max-width: 80%;
+						order: 2 !important;
+						.info {
+							margin: 0 !important;
+							margin-top: -50px !important;
+							margin-right: 20px !important;
+							min-height: auto;
+						}
 					}
 				}
 			}
