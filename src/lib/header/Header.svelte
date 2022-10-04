@@ -5,6 +5,8 @@
 	import { doc, setDoc } from 'firebase/firestore';
 	import { db } from '../../firebase';
 	export let data: any[] = [];
+	console.log(data);
+
 	let radio = 0;
 	let autoslide = true;
 	let play = false;
@@ -14,9 +16,9 @@
 	// 	if (autoslide) radio < data.length - 1 ? radio++ : (radio = 0);
 	// }, 5000);
 	$: autoslide = y === 0 && !clicked;
-	const idoc = 'r6r1Ewqw52OwbXuG61Vo';
 	saveinfo.subscribe((value) => {
-		if (value) setDoc(doc(db, 'event', idoc), data[radio]).then(() => ($editmode = false));
+		if (value)
+			setDoc(doc(db, 'event', data[radio].id), data[radio]).then(() => ($editmode = false));
 		$saveinfo = false;
 	});
 </script>

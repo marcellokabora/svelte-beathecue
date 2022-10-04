@@ -38,9 +38,9 @@
 			<div class="menus" data-aos="fade-down">
 				{#if !$editmode}
 					<div class="menu1">
-						<div class="menu">
+						<a href="/admin" class="menu" on:click={() => (showuser = false)}>
 							<div class="info">{$user}</div>
-						</div>
+						</a>
 						<div class="menu">
 							<div class="info" on:click={logout}><span class="material-icons">logout</span></div>
 						</div>
@@ -115,6 +115,8 @@
 					display: flex;
 					justify-content: end;
 					width: 100%;
+					text-decoration: none;
+					color: white;
 					&:not(:last-child) {
 						margin-right: 5px;
 						margin-bottom: 5px;
