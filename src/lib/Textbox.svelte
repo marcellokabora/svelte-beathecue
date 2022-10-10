@@ -1,7 +1,6 @@
 <script lang="ts">
 	export let editmode = false;
 	export let invert = false;
-	// import type { Banner } from './$types';
 	export let data: any;
 </script>
 
@@ -23,6 +22,11 @@
 	.textbox {
 		z-index: 1;
 		position: relative;
+		&.invert {
+			.boxcont {
+				justify-content: end;
+			}
+		}
 		.boxcont {
 			display: flex;
 			max-width: 1200px;

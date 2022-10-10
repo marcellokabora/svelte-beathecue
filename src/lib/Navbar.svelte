@@ -102,7 +102,7 @@
 			align-items: center;
 			background-color: black;
 			color: white;
-			margin: 0 10px;
+			margin: 0 5px;
 			padding: 10px 20px;
 			border-radius: 5px;
 			font-size: 12px;

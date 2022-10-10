@@ -3,13 +3,11 @@
 	import { closeModal } from 'svelte-modals';
 	export let isOpen = true;
 	export let data: any;
-	export let changeColor: any;
-	export let changeCover: any;
+	export let changePhoto: any;
 	export let changeVideo: any;
 	function handleModal() {
-		changeColor(data.color);
-		changeVideo(data.header.video);
-		changeCover(data.header.cover);
+		changeVideo(data.video);
+		changePhoto(data.photo);
 		closeModal();
 	}
 	const storage = getStorage();
@@ -18,7 +16,7 @@
 		let image = e.target.files[0];
 		uploadBytes(ref(storage, image.name), image).then((snapshot) => {
 			getDownloadURL(snapshot.ref).then((downloadURL) => {
-				data.header.cover = downloadURL;
+				data.photo = downloadURL;
 			});
 		});
 	};
@@ -28,12 +26,8 @@
 	<div role="dialog" class="modal" data-aos="fade-down">
 		<div class="contents">
 			<div class="field">
-				<label for="color">Color</label>
-				<input id="color" type="text" bind:value={data.color} autocomplete="off" />
-			</div>
-			<div class="field">
 				<label for="video">Video</label>
-				<input id="video" type="text" bind:value={data.header.video} autocomplete="off" />
+				<input id="video" type="text" bind:value={data.video} autocomplete="off" />
 			</div>
 			<div class="field">
 				<label for="file">Photo</label>

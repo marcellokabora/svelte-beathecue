@@ -1,5 +1,6 @@
 <script lang="ts">
-	import Settings from './Settings.svelte';
+	import { openModal } from 'svelte-modals';
+	import ModalSection from './Modal.svelte';
 
 	export let color = 'black';
 	export let opacity = false;
@@ -17,6 +18,7 @@
 		block2: [
 			{
 				photo: string;
+				video: string;
 				title: string;
 				infos: string;
 			}
@@ -40,6 +42,7 @@
 		block2: [
 			{
 				photo: '/back1.jpeg',
+				video: '',
 				title: 'Deserunt mollit anim',
 				infos:
 					'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
@@ -55,6 +58,7 @@
 	const onAdd = () => {
 		data.block2.push({
 			photo: '/back1.jpeg',
+			video: '',
 			title: 'Deserunt mollit anim',
 			infos:
 				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
@@ -62,12 +66,21 @@
 		radio = 0;
 		block2 = data.block2;
 	};
-	const onRemove = (index: number) => {
-		if (data.block2.length > 1) data.block2.splice(index, 1);
+	const onRemove = () => {
+		if (data.block2.length > 1) data.block2.splice(radio, 1);
 		radio = 0;
 		block2 = data.block2;
 	};
 	let block2 = data.block2;
+	function handlePhoto() {
+		console.log(block2[radio]);
+
+		openModal(ModalSection, {
+			data: block2[radio],
+			changePhoto: (photo: string) => (block2[radio].photo = photo),
+			changeVideo: (video: string) => (block2[radio].video = video)
+		});
+	}
 </script>
 
 <section class="skewy" style:background-color={color} class:opacity class:invert>
@@ -89,7 +102,12 @@
 			<div class="photo">
 				{#each block2 as item, index}
 					{#if radio === index}
-						<img src={item.photo} alt="" data-aos="zoom-in" />
+						<div data-aos="zoom-in">
+							<img src={item.photo} alt="" />
+							{#if editmode}
+								<span class="material-icons settings" on:click={handlePhoto}>settings</span>
+							{/if}
+						</div>
 					{/if}
 				{/each}
 			</div>
@@ -97,12 +115,12 @@
 				{#if radio === index}
 					<div class="detail" data-aos="zoom-in">
 						<div style:background-color={color} class="info">
-							<Settings
-								{editmode}
-								on:add={onAdd}
-								on:remove={() => onRemove(index)}
-								bind:data={data.block2}
-							/>
+							{#if editmode}
+								<div class="action">
+									<span class="material-icons" on:click={onRemove}>remove</span>
+									<span class="material-icons" on:click={onAdd}>add</span>
+								</div>
+							{/if}
 							{#if block2.length > 1}
 								<form class="radio">
 									{#each block2 as item, index}
@@ -127,142 +145,4 @@
 	</div>
 </section>
 
-<style lang="scss">
-	section {
-		position: relative;
-		color: white;
-		padding: 40px;
-		min-height: 80vh;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		margin-top: -2px;
-		&.opacity {
-			.opacity {
-				opacity: 0.1;
-			}
-		}
-		&.invert {
-			.container {
-				align-items: flex-end;
-				.blocks {
-					padding-left: 0 !important;
-					padding-right: 100px;
-				}
-				.photo {
-					order: 2;
-					// margin-right: 50px;
-				}
-				.title {
-					box-shadow: -3px 3px 3px rgba(0, 0, 0, 0.2) !important;
-				}
-				.info {
-					order: 1;
-					margin-left: 0 !important;
-					margin-right: -150%;
-					box-shadow: 3px -3px 3px rgba(0, 0, 0, 0.2) !important;
-				}
-			}
-		}
-		.opacity {
-			position: absolute;
-			left: 0;
-			right: 0;
-			top: 0;
-			bottom: 0;
-			background-color: black;
-			opacity: 0.05;
-		}
-		.container {
-			max-width: 1200px;
-			margin: auto;
-			padding-top: 200px;
-			padding-bottom: 250px;
-			display: flex;
-			flex-direction: column;
-			width: 100%;
-			.title {
-				max-width: 40%;
-				margin-bottom: 20px;
-				padding: 20px 40px;
-				box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
-				z-index: 1;
-				position: relative;
-				margin-bottom: -50px;
-				border-radius: 10px;
-				h2 {
-					font-size: 35px;
-					margin: 0;
-				}
-			}
-			.blocks {
-				display: flex;
-				align-items: flex-end;
-				padding-left: 100px;
-			}
-			.photo {
-				flex: 8;
-				img {
-					width: 100%;
-					height: 450px;
-					object-fit: cover;
-					box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-					border-radius: 10px;
-				}
-			}
-			.detail {
-				flex: 1;
-				position: relative;
-				.info {
-					box-shadow: -3px -3px 3px rgba(0, 0, 0, 0.2);
-					padding: 40px;
-					min-height: 200px;
-					display: flex;
-					flex-direction: column;
-					justify-content: start;
-					margin-bottom: -50px;
-					margin-left: -150%;
-					position: relative;
-					border-radius: 10px;
-
-					form {
-						position: absolute;
-						right: 40px;
-					}
-					h3 {
-						font-size: 25px;
-						margin-bottom: 0;
-					}
-				}
-			}
-		}
-		@media (max-width: 1200px) {
-			.container {
-				align-items: flex-start !important;
-
-				.title {
-					max-width: 60% !important;
-					margin-left: 20px !important;
-				}
-				.blocks {
-					flex-direction: column;
-					padding: 0 !important;
-					.photo {
-						flex: 1;
-						order: 1 !important;
-					}
-					.detail {
-						max-width: 80%;
-						order: 2 !important;
-						.info {
-							margin: 0 !important;
-							margin-top: -50px !important;
-							margin-right: 20px !important;
-							min-height: auto;
-						}
-					}
-				}
-			}
-		}
-	}
-</style>
+<style src="./style.scss"></style>

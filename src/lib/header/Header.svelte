@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Section from '../Section.svelte';
+	import Section from '../section/Section.svelte';
 	import Textbox from '../Textbox.svelte';
 	import { editmode, saveinfo } from '../../stores';
 	import { doc, setDoc } from 'firebase/firestore';
@@ -104,7 +104,7 @@
 									{play ? 'STOP' : 'PLAY'}
 								</button>
 								<div class="space" />
-								{#if data[0]}
+								{#if data[1]}
 									<a href={`/event/${item.id}`}>
 										<button style:background-color={color}>OPEN</button>
 									</a>
