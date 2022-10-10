@@ -77,9 +77,7 @@
 		<div class="title" data-aos="fade-down" style:background-color={color}>
 			{#if editmode}
 				<h2 contenteditable bind:textContent={data.block1.title} />
-				{#if data.block1.infos}
-					<p contenteditable bind:textContent={data.block1.infos} />
-				{/if}
+				<p contenteditable bind:textContent={data.block1.infos} />
 			{:else}
 				<h2 contenteditable="false" bind:textContent={data.block1.title} />
 				{#if data.block1.infos}
@@ -114,9 +112,7 @@
 							{/if}
 							{#if editmode}
 								<h3 contenteditable bind:textContent={item.title} />
-								{#if item.infos}
-									<p contenteditable bind:textContent={item.infos} />
-								{/if}
+								<p contenteditable bind:textContent={item.infos} />
 							{:else}
 								<h3 contenteditable="false" bind:textContent={item.title} />
 								{#if item.infos}
@@ -163,7 +159,7 @@
 				.info {
 					order: 1;
 					margin-left: 0 !important;
-					margin-right: -200px;
+					margin-right: -150%;
 					box-shadow: 3px -3px 3px rgba(0, 0, 0, 0.2) !important;
 				}
 			}
@@ -184,6 +180,7 @@
 			padding-bottom: 250px;
 			display: flex;
 			flex-direction: column;
+			width: 100%;
 			.title {
 				max-width: 40%;
 				margin-bottom: 20px;
@@ -204,7 +201,7 @@
 				padding-left: 100px;
 			}
 			.photo {
-				flex: 3;
+				flex: 8;
 				img {
 					width: 100%;
 					height: 450px;
@@ -224,7 +221,7 @@
 					flex-direction: column;
 					justify-content: start;
 					margin-bottom: -50px;
-					margin-left: -200px;
+					margin-left: -150%;
 					position: relative;
 					border-radius: 10px;
 

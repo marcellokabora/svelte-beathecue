@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { data } from '$lib/header/data';
 	import { doc, setDoc } from 'firebase/firestore';
-	import { db } from '../../firebase';
+	import { db } from '$db/firebase';
 
 	let id = '';
 

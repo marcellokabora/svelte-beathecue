@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 import { collection, getDocs, limit, query } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "$db/firebase";
 export async function load({ }: any) {
     const querySnapshot = await getDocs(query(collection(db, "event"), limit(3)));
     if (querySnapshot) {

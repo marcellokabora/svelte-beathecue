@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { db } from "$db/firebase";
 
 export async function load({ params }: any) {
     const docSnap = await getDoc(doc(db, "event", params.id));

@@ -5,7 +5,13 @@ section {
     min-height: 70vh;
     display: flex;
     flex-direction: column;
-    z-index: 10;
+    z-index: 1;
+    .headersettings {
+        cursor: pointer;
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
     .container {
         flex: 1;
         max-width: 1200px;
@@ -61,6 +67,7 @@ section {
                     align-items: center;
                     justify-content: center;
                     flex-direction: column;
+                    position: relative;
                     @media (max-width: 1000px) {
                         width: auto;
                         height: auto;
@@ -111,4 +118,14 @@ section {
             }
         }
     }
+}
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
 }

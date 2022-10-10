@@ -19,25 +19,25 @@
 		</a>
 	</div>
 	<div class="space" />
-	<div class="search1 skewy">
-		<div class="search">
-			<input type="text" placeholder="Search..." />
-			<div
-				class="icon"
-				on:click={() => ($user ? (showuser = !showuser) : (showlogin = !showlogin))}
-			>
-				<span class="material-icons">person</span>
+	{#if !$editmode}
+		<div class="search1 skewy">
+			<div class="search">
+				<input type="text" placeholder="Search..." />
+				<div
+					class="icon"
+					on:click={() => ($user ? (showuser = !showuser) : (showlogin = !showlogin))}
+				>
+					<span class="material-icons">person</span>
+				</div>
 			</div>
-		</div>
-		{#if showlogin}
-			<div class="menus" data-aos="fade-down">
-				<Login bind:showlogin bind:showuser />
-			</div>
-		{/if}
-		{#if showuser}
-			<div class="menus" data-aos="fade-down">
-				{#if !$editmode}
-					<div class="menu1">
+			{#if showlogin}
+				<div class="menus" data-aos="fade-down">
+					<Login bind:showlogin bind:showuser />
+				</div>
+			{/if}
+			{#if showuser}
+				<div class="menus" data-aos="fade-down">
+					{#if !$editmode}
 						<a href="/admin" class="menu" on:click={() => (showuser = false)}>
 							<div class="info">{$user}</div>
 						</a>
@@ -56,50 +56,70 @@
 								</div>
 							</div>
 						{/if}
-					</div>
-				{/if}
-				<div class="menu1">
-					<div class="menu">
-						{#if $editmode}
-							<div
-								class="info"
-								on:click={() => {
-									$editmode = false;
-									showuser = false;
-								}}
-							>
-								<span class="text">CANCEL</span>
-								<div class="space" />
-								<span class="material-icons">cancel</span>
-							</div>
-						{/if}
-					</div>
-					{#if $editmode}
-						<div class="menu">
-							<div
-								class="info"
-								on:click={() => {
-									$saveinfo = true;
-									showuser = false;
-								}}
-							>
-								<span class="text">SAVE</span>
-								<div class="space" />
-								<span class="material-icons">save</span>
-							</div>
-						</div>
 					{/if}
 				</div>
+			{/if}
+		</div>
+	{/if}
+	{#if $editmode}
+		<div class="editmode skewy">
+			<div
+				class="menu"
+				on:click={() => {
+					$editmode = false;
+					showuser = false;
+				}}
+			>
+				<span class="text">CANCEL</span>
+				<div class="space" />
+				<span class="material-icons">cancel</span>
 			</div>
-		{/if}
-	</div>
+
+			<div
+				class="menu"
+				on:click={() => {
+					$saveinfo = true;
+					showuser = false;
+				}}
+			>
+				<span class="text">SAVE</span>
+				<div class="space" />
+				<span class="material-icons">save</span>
+			</div>
+		</div>
+	{/if}
 </header>
 
 <style lang="scss">
+	.editmode {
+		position: absolute;
+		left: 140px;
+		top: 40px;
+		display: flex;
+		align-items: center;
+		.menu {
+			display: flex;
+			align-items: center;
+			background-color: black;
+			color: white;
+			margin: 0 10px;
+			padding: 10px 20px;
+			border-radius: 5px;
+			font-size: 12px;
+			cursor: pointer;
+			&:hover {
+				background-color: rgba(0, 0, 0, 0.5);
+			}
+			.text {
+				margin-right: 10px;
+				font-weight: bold;
+			}
+		}
+	}
 	.search1 {
-		position: relative;
-		margin-right: 30px;
-		margin-top: 30px;
+		position: absolute;
+		left: 160px;
+		top: 35px;
 		.menus {
 			position: absolute;
 			padding: 20px;
@@ -108,48 +128,46 @@
 			right: 0;
 			border-radius: 10px;
 			margin-top: 10px;
-			.menu1 {
+			display: flex;
+			align-items: center;
+			.menu {
 				display: flex;
 				justify-content: end;
-				.menu {
+				width: 100%;
+				text-decoration: none;
+				color: white;
+				&:not(:last-child) {
+					margin-right: 5px;
+					margin-bottom: 5px;
+				}
+				.info {
+					background-color: black;
+					padding: 15px;
+					cursor: pointer;
+					text-align: right;
+					border-radius: 5px;
+					font-size: 12px;
+					font-weight: bold;
+					height: 30px;
 					display: flex;
-					justify-content: end;
+					justify-content: center;
+					align-items: center;
 					width: 100%;
-					text-decoration: none;
-					color: white;
-					&:not(:last-child) {
-						margin-right: 5px;
-						margin-bottom: 5px;
+					text-align: center;
+					&:hover {
+						background-color: rgb(22, 22, 22);
 					}
-					.info {
-						background-color: black;
-						padding: 15px;
-						cursor: pointer;
-						text-align: right;
-						border-radius: 5px;
-						font-size: 12px;
-						font-weight: bold;
-						height: 30px;
-						display: flex;
-						justify-content: center;
-						align-items: center;
-						width: 100%;
-						text-align: center;
-						&:hover {
-							background-color: rgb(22, 22, 22);
-						}
-						.text {
-							flex: 1;
-						}
-						.space {
-							padding-left: 10px;
-							margin-left: 10px;
-							border-left: 1px solid rgba(255, 255, 255, 0.3);
-							height: 100%;
-						}
-						.material-icons {
-							float: right;
-						}
+					.text {
+						flex: 1;
+					}
+					.space {
+						padding-left: 10px;
+						margin-left: 10px;
+						border-left: 1px solid rgba(255, 255, 255, 0.3);
+						height: 100%;
+					}
+					.material-icons {
+						float: right;
 					}
 				}
 			}

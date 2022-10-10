@@ -1,7 +1,7 @@
-import { env } from "$env/dynamic/public";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-// import { apiKey } from '$env/dynamic/private';
+// import { apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId } from '$env/static/private';
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCOCJIf6eSlcMaoWmalF_MIJqpOllojdrI",
@@ -20,7 +20,10 @@ const firebaseConfig = {
 
 };
 
+
+
 const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
 export const db = getFirestore(app);
 
 
